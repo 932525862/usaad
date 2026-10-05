@@ -8,12 +8,58 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [
-    { title: "Biz haqimizda — USAAD" },
-    { name: "description", content: "USAAD laboratoriyasi, mutaxassislar va sifat nazorati tamoyillari haqida." },
+    { title: "Biz haqimizda — USAAD | ISO 17025 Akkreditatsiyalangan laboratoriya" },
+    {
+      name: "description",
+      content:
+        "USAAD — O’zbekistonda neft, kimyo va sanoat mahsulotlari bo’yicha ISO 17025 akkreditatsiyalangan mustaqil laboratoriya va sertifikatlash markazi. 1200+ sertifikat, 98% aniqlik.",
+    },
+    {
+      name: "keywords",
+      content:
+        "USAAD haqida, sertifikatlash markazi Toshkent, ISO 17025 laboratoriya, akkreditatsiyalangan sinov, O’zbekiston sertifikatlash, neft ekspertizasi, mustaqil laboratoriya",
+    },
     { property: "og:title", content: "Biz haqimizda — USAAD" },
-    { property: "og:description", content: "Aniqlik, mustaqillik va xalqaro standartlarga tayangan ekspertiza markazi." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ]}),
+    {
+      property: "og:description",
+      content: "Aniqlik, mustaqillik va xalqaro standartlarga tayangan ISO 17025 akkreditatsiyalangan ekspertiza markazi.",
+    },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://usaad.uz/about" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ],
+  links: [{ rel: "canonical", href: "https://usaad.uz/about" }],
+  scripts: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Bosh sahifa", item: "https://usaad.uz/" },
+          { "@type": "ListItem", position: 2, name: "Biz haqimizda", item: "https://usaad.uz/about" },
+        ],
+      }),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        name: "USAAD haqida",
+        description:
+          "USAAD — O’zbekistonda neft, kimyo va sanoat mahsulotlari bo’yicha akkreditatsiyalangan mustaqil laboratoriya va sertifikatlash markazi.",
+        url: "https://usaad.uz/about",
+        mainEntity: {
+          "@type": "Organization",
+          name: "USAAD Sertifikatlash markazi",
+          foundingLocation: "Toshkent, O’zbekiston",
+          hasCredential: "ISO 17025 Akkreditatsiya",
+        },
+      }),
+    },
+  ],
+  }),
   component: AboutPage,
 });
 

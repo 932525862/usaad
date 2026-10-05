@@ -6,12 +6,51 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({ meta: [
-    { title: "Ariza va aloqa — USAAD" },
-    { name: "description", content: "Mahsulotingizni sinovdan o‘tkazish yoki sertifikatlash uchun USAAD mutaxassisiga murojaat qiling." },
+    { title: "Ariza va aloqa — USAAD | Sertifikatlash uchun murojaat" },
+    {
+      name: "description",
+      content:
+        "USAAD ga ariza qoldiring! Mahsulotingizni sinovdan o’tkazish yoki sertifikatlash uchun mutaxassisimiz bilan bog’laning. Tez javob. O’zbekiston.",
+    },
+    {
+      name: "keywords",
+      content:
+        "USAAD ariza, sertifikatlash uchun murojaat, neft sertifikati ariza, laboratoriya sinovi ariza, sertifikat olish, USAAD kontakt, Toshkent sertifikatlash",
+    },
     { property: "og:title", content: "Ariza qoldirish — USAAD" },
-    { property: "og:description", content: "Sertifikatlash bo‘yicha dastlabki maslahat va ariza." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ]}),
+    {
+      property: "og:description",
+      content: "Sertifikatlash bo’yicha dastlabki maslahat va ariza — USAAD mutaxassislari 14 kunda javob beradi.",
+    },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://usaad.uz/contact" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ],
+  links: [{ rel: "canonical", href: "https://usaad.uz/contact" }],
+  scripts: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Bosh sahifa", item: "https://usaad.uz/" },
+          { "@type": "ListItem", position: 2, name: "Aloqa", item: "https://usaad.uz/contact" },
+        ],
+      }),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        name: "USAAD bilan bog’lanish",
+        description: "Sertifikatlash xizmatlari uchun ariza qoldiring",
+        url: "https://usaad.uz/contact",
+      }),
+    },
+  ],
+  }),
   component: ContactPage,
 });
 

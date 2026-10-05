@@ -12,6 +12,63 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { useLanguage } from "../lib/i18n";
+
+const SITE_URL = "https://usaad.uz";
+
+// JSON-LD Organization Schema for rich search results
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "USAAD — Sertifikatlash markazi",
+  alternateName: ["USAAD", "УСААД", "Usaad Certification Center"],
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon.ico`,
+  description:
+    "O'zbekistonda neft, kimyo va sanoat mahsulotlari uchun akkreditatsiyalangan laboratoriya sinovi, ekspertiza va rasmiy sertifikatlash markazi. ISO 17025 standarti bo'yicha akkreditatsiyalangan.",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "UZ",
+    addressLocality: "Toshkent",
+    addressRegion: "Toshkent viloyati",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    availableLanguage: ["Uzbek", "Russian", "English"],
+  },
+  sameAs: [
+    `${SITE_URL}/about`,
+    `${SITE_URL}/services`,
+  ],
+  serviceArea: {
+    "@type": "Country",
+    name: "Uzbekistan",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Sertifikatlash xizmatlari",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Neft mahsulotlari sertifikatlash" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Kimyoviy mahsulotlar ekspertizasi" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Sanoat mahsulotlari sinovi" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Texnik ekspertiza va audit" } },
+    ],
+  },
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "USAAD",
+  url: SITE_URL,
+  description: "USAAD — O'zbekiston neft va sanoat mahsulotlarini sertifikatlash markazi",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+};
 
 function NotFoundComponent() {
   return (
@@ -78,21 +135,72 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "USAAD" },
-      { name: "description", content: "Neft va sanoat mahsulotlarini sinovdan o‘tkazish va sertifikatlash markazi." },
-      { name: "author", content: "USAAD" },
+      { title: "USAAD — Sertifikatlash markazi | Neft, kimyo va sanoat mahsulotlari" },
+      {
+        name: "description",
+        content:
+          "USAAD — O'zbekistonda neft, kimyo va sanoat mahsulotlari uchun akkreditatsiyalangan sertifikatlash markazi. ISO 17025 standartida laboratoriya sinovi, ekspertiza va rasmiy sertifikat. 1200+ bergan sertifikat.",
+      },
+      { name: "author", content: "USAAD Sertifikatlash markazi" },
+      {
+        name: "keywords",
+        content:
+          "USAAD, usaad sertifikatlash, usaad markazi, neft mahsulotlari sertifikati, kimyo laboratoriya, sanoat sertifikatlash, ISO 17025, muvofiqlik sertifikati, O'zbekiston sertifikat, neft sinovi, fuel testing uzbekistan, petroleum certification, сертификация нефтепродуктов узбекистан, УСААД",
+      },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      { name: "googlebot", content: "index, follow" },
+      { name: "theme-color", content: "#0D2137" },
+      { name: "msapplication-TileColor", content: "#0D2137" },
+      // Open Graph
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "USAAD" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:title", content: "USAAD — Sertifikatlash markazi" },
+      {
+        property: "og:description",
+        content:
+          "O'zbekistonda neft, kimyo va sanoat mahsulotlari uchun ISO 17025 akkreditatsiyalangan sertifikatlash. 1200+ rasmiy sertifikat. 14 kunda natija.",
+      },
+      { property: "og:locale", content: "uz_UZ" },
+      { property: "og:locale:alternate", content: "ru_RU" },
+      { property: "og:locale:alternate", content: "en_US" },
+      // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "USAAD — Sertifikatlash markazi" },
+      {
+        name: "twitter:description",
+        content: "Neft, kimyo va sanoat mahsulotlari uchun ISO 17025 akkreditatsiyalangan sertifikatlash — O'zbekiston.",
+      },
+      // Geo tags for local SEO
+      { name: "geo.region", content: "UZ" },
+      { name: "geo.country", content: "Uzbekistan" },
+      { name: "language", content: "Uzbek" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "canonical", href: SITE_URL },
+      // hreflang for multilingual SEO
+      { rel: "alternate", hrefLang: "uz", href: `${SITE_URL}/` },
+      { rel: "alternate", hrefLang: "ru", href: `${SITE_URL}/` },
+      { rel: "alternate", hrefLang: "en", href: `${SITE_URL}/` },
+      { rel: "alternate", hrefLang: "x-default", href: `${SITE_URL}/` },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(organizationSchema),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(webSiteSchema),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -103,7 +211,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="uz">
       <head>
         <HeadContent />
       </head>
@@ -117,12 +225,22 @@ function RootShell({ children }: { children: ReactNode }) {
 
 import { LanguageProvider } from "../lib/i18n";
 
+// Syncs html[lang] attribute with user's chosen language for accessibility & SEO
+function LangSync() {
+  const { lang } = useLanguage();
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+        <LangSync />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </LanguageProvider>

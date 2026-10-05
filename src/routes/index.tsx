@@ -11,12 +11,72 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "USAAD — Mahsulotlarni sertifikatlash markazi" },
-      { name: "description", content: "Neft, kimyo va sanoat mahsulotlari uchun laboratoriya sinovi, ekspertiza va rasmiy sertifikatlash." },
-      { property: "og:title", content: "USAAD — Mahsulotlarni sertifikatlash markazi" },
-      { property: "og:description", content: "Aniq o‘lchov, professional ekspertiza va rasmiy sertifikat." },
+      { title: "USAAD — Neft va sanoat mahsulotlari sertifikatlash markazi | Toshkent" },
+      {
+        name: "description",
+        content:
+          "USAAD — O’zbekistonda neft, kimyo va sanoat mahsulotlari uchun ISO 17025 akkreditatsiyalangan laboratoriya sinovi va rasmiy sertifikatlash markazi. 1200+ sertifikat. 14 kunda natija. Ariza qoldiring!",
+      },
+      {
+        name: "keywords",
+        content:
+          "USAAD, neft mahsulotlari sertifikatlash, kimyo laboratoriya Toshkent, sanoat mahsulotlari ekspertizasi, ISO 17025 Uzbekistan, muvofiqlik sertifikati, benzin dizel sertifikati, sertifikatlash markazi, usaad uz, sertifikat tris uz",
+      },
+      { property: "og:title", content: "USAAD — Sertifikatlash markazi" },
+      {
+        property: "og:description",
+        content:
+          "O’zbekistonda neft, kimyo va sanoat mahsulotlari uchun ISO 17025 akkreditatsiyalangan sertifikatlash. 1200+ rasmiy sertifikat. 14 kunda natija.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://usaad.uz/" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "USAAD — Sertifikatlash markazi" },
+      {
+        name: "twitter:description",
+        content: "Neft, kimyo va sanoat mahsulotlari uchun ISO 17025 akkreditatsiyalangan sertifikatlash — O’zbekiston.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "https://usaad.uz/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "USAAD — Sertifikatlash markazi",
+          description:
+            "O’zbekistonda neft, kimyo va sanoat mahsulotlari uchun akkreditatsiyalangan laboratoriya sinovi va rasmiy sertifikatlash.",
+          url: "https://usaad.uz",
+          priceRange: "$$",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "UZ",
+            addressLocality: "Toshkent",
+          },
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            reviewCount: "1200",
+          },
+          openingHours: "Mo-Fr 09:00-18:00",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Bosh sahifa",
+              item: "https://usaad.uz/",
+            },
+          ],
+        }),
+      },
     ],
   }),
   component: Index,

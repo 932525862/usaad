@@ -9,12 +9,56 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createFileRoute("/services")({
   head: () => ({ meta: [
-    { title: "Xizmatlar — USAAD" },
-    { name: "description", content: "Neft, kimyo va sanoat mahsulotlari uchun sinov, ekspertiza va sertifikatlash xizmatlari." },
+    { title: "Xizmatlar — USAAD | Neft, kimyo va sanoat sertifikatlash" },
+    {
+      name: "description",
+      content:
+        "USAAD xizmatlari: neft mahsulotlari, kimyoviy va sanoat mahsulotlari sinovi, texnik ekspertiza va rasmiy sertifikatlash. ISO 17025 akkreditatsiya. O’zbekiston.",
+    },
+    {
+      name: "keywords",
+      content:
+        "neft sertifikati, kimyo ekspertizasi, sanoat sinovi, laboratoriya xizmatlari, texnik audit, ISO 17025, USAAD xizmatlar, benzin dizel sinovi, sertifikat Toshkent",
+    },
     { property: "og:title", content: "Sertifikatlash xizmatlari — USAAD" },
-    { property: "og:description", content: "Laboratoriya sinovi, ekspertiza va muvofiqlik sertifikati." },
-    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ]}),
+    {
+      property: "og:description",
+      content: "Laboratoriya sinovi, ekspertiza va muvofiqlik sertifikati — USAAD akkreditatsiyalangan markazi.",
+    },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://usaad.uz/services" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ],
+  links: [{ rel: "canonical", href: "https://usaad.uz/services" }],
+  scripts: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Bosh sahifa", item: "https://usaad.uz/" },
+          { "@type": "ListItem", position: 2, name: "Xizmatlar", item: "https://usaad.uz/services" },
+        ],
+      }),
+    },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "USAAD Sertifikatlash xizmatlari",
+        description: "Neft, kimyo va sanoat mahsulotlari uchun akkreditatsiyalangan sinov va sertifikatlash xizmatlari",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Neft mahsulotlari sertifikatlash" },
+          { "@type": "ListItem", position: 2, name: "Kimyoviy mahsulotlar ekspertizasi" },
+          { "@type": "ListItem", position: 3, name: "Sanoat mahsulotlari sinovi" },
+          { "@type": "ListItem", position: 4, name: "Texnik ekspertiza va audit" },
+        ],
+      }),
+    },
+  ],
+  }),
   component: ServicesPage,
 });
 
