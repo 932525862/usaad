@@ -47,6 +47,28 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      if (url.pathname === "/api/telegram" && request.method === "POST") {
+        const body = (await request.json()) as { text?: string };
+        const BOT_TOKEN = "8857786618:AAHMLmAkPqSaxn71wpsiy1Q7f1QdRZNy8lQ";
+        const CHAT_ID = "-1004398955598";
+
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: body.text,
+          }),
+        });
+
+        const data = await res.json();
+        return new Response(JSON.stringify(data), {
+          status: res.status,
+          headers: { "content-type": "application/json" },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
